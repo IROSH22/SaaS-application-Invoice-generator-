@@ -2572,7 +2572,7 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #007bff;
+  background-color: #3700ff;
   border-color: #007bff;
   box-shadow: none;
 }
@@ -32980,5 +32980,47 @@ a.text-muted:hover {
     transform: rotate(360deg);
   }
 }
+
+
+.sidebar-calculator {
+  background-color: #343a40; /* Change background color */
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.sidebar-calculator h6 {
+  color: #ffc107; /* Change title text color */
+}
+
+.sidebar-calculator input {
+  background-color: #212529; /* Change display background */
+  color: #ffffff; /* Change display text color */
+  border: 1px solid #ffc107; /* Change display border color */
+}
+
+.sidebar-calculator .btn {
+  border-radius: 5px;
+}
+
+.sidebar-calculator .btn-light {
+  background-color: #dc3545; /* Change "C" button color */
+  color: #ffffff;
+}
+
+.sidebar-calculator .btn-secondary {
+  background-color: #6c757d; /* Change number button color */
+  color: #ffffff;
+}
+
+.sidebar-calculator .btn-warning {
+  background-color: #fd7e14; /* Change operator button color */
+  color: #ffffff;
+}
+
+.sidebar-calculator .btn-success {
+  background-color: #28a745; /* Change "=" button color */
+  color: #ffffff;
+}
+
 
 /*# sourceMappingURL=adminlte.css.map */
