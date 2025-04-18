@@ -16,6 +16,8 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
     }
 }
 $tax_rate = isset($tax_rate) ? $tax_rate : $_settings->info('tax_rate');
+$vat_rate = 15; // Set your VAT rate here
+$vat = $sub_total * ($vat_rate / 100);
 ?>
 <style>
 table th, table td{
@@ -99,9 +101,19 @@ table th, table td{
             <th class="text-right" colspan="4">Tax</th>
             <th class="text-right" id="tax"><?php echo number_format($sub_total * ($tax_rate/100) ) ?></th>
         </tr>
+        <!-- VAT Section Start -->
+        <tr class="bg-foot" style="background-color:#95b3e8 !important;">
+            <th class="text-right" colspan="4">VAT Rate</th>
+            <th class="text-right"><?php echo $vat_rate ?>%</th>
+        </tr>
+        <tr class="bg-foot" style="background-color:#95b3e8 !important;">
+            <th class="text-right" colspan="4">VAT</th>
+            <th class="text-right"><?php echo number_format($vat) ?></th>
+        </tr>
+        <!-- VAT Section End -->
         <tr class="bg-foot" style="background-color:#95b3e8 !important;">
             <th class="text-right" colspan="4">Grand Total</th>
-            <th class="text-right" id="gtotal"><?php echo number_format($total_amount) ?></th>
+            <th class="text-right" id="gtotal"><?php echo number_format($sub_total + ($sub_total * ($tax_rate / 100)) + $vat) ?></th>
         </tr>
     </tfoot>
 </table>
