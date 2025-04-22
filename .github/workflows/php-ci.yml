@@ -1,0 +1,56 @@
+name: PHP CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP 8.0
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.0
+        extensions: mbstring, xml, ctype, iconv, intl, pdo
+        ini-values: post_max_size=256M, upload_max_filesize=256M
+        coverage: xdebug
+
+    - name: Check PHP Version
+      run: php -v
+
+    - name: Install dependencies
+      run: |
+        if [ -f composer.json ]; then
+          composer install --prefer-dist --no-progress --no-suggest
+        fi
+
+    - name: Run PHP Linter
+      run: find . -type f -name "*.php" -exec php -l {} \;
+
+    - name: Run PHP CodeSniffer (PSR-12)
+      run: |
+        composer global require "squizlabs/php_codesniffer=*"
+        ~/.composer/vendor/bin/phpcs --standard=PSR12 .
+
+    - name: Run PHP Static Analysis (Psalm)
+      run: |
+        composer require --dev vimeo/psalm
+        vendor/bin/psalm --init
+        vendor/bin/psalm
+
+
+    - name: Run Tests
+      run: |
+        if [ -f vendor/bin/phpunit ]; then
+          vendor/bin/phpunit
+        else
+          echo "PHPUnit not found. Skipping test step."
+        fi
