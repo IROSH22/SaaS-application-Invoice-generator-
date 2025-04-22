@@ -1,0 +1,13 @@
+sla:
+  bug:
+    response: 24h
+    resolution: 5d
+  feature:
+    response: 48h
+    resolution: 14d
+  tech-debt:
+    response: 72h
+    resolution: 14d
+
+
+

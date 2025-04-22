@@ -1,0 +1,14 @@
+name: SLA Bot
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour
+
+jobs:
+  sla-monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SLA Bot
+        uses: necojackarc/sla-bot@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
