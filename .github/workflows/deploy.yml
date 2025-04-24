@@ -1,0 +1,33 @@
+name: Deploy to Environment
+
+on:
+  push:
+    branches:
+      - dev
+      - staging
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+
+      - name: Install Dependencies
+        run: composer install --no-progress --no-suggest
+
+      - name: Run Tests
+        run: phpunit
+
+      - name: Deploy to Server
+        if: github.ref == 'refs/heads/main' # Only deploy on main branch
+        run: |
+          echo "Deploying to production server"
+          # Example SSH command to upload files
+          rsync -avz --delete ./ user@yourserver:/var/www/invoicegen
